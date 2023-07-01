@@ -1,25 +1,24 @@
+import { useAppSelector } from '../../store/hooks'
+import { getUser } from '../../store/reducers/userSlice'
 import Styles from './styles'
 
-interface SidebarProps {
-  avatarUrl: string
-  name: string
-}
+export function Sidebar() {
+  const user = useAppSelector(getUser)
 
-export function Sidebar({ name, avatarUrl }: SidebarProps) {
   return (
     <Styles.Sidebar>
       <Styles.Profile>
         <img
           src={
-            avatarUrl ||
+            user.avatar ||
             'https://freepngimg.com/thumb/google/66726-customer-account-google-service-button-search-logo.png'
           }
-          alt={`avatar do ${name}`}
+          alt={`avatar do ${user.name}`}
         />
 
         <div className="user-information">
-          <strong>Nikaum</strong>
-          <span>@Nikaum</span>
+          <strong>{user.name}</strong>
+          <span>{`@${user.nickname}`}</span>
         </div>
       </Styles.Profile>
 

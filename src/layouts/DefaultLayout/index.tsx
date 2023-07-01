@@ -9,10 +9,7 @@ export function DefaultLayout() {
       <Header />
 
       <Styles.LayoutContainer>
-        <Sidebar
-          avatarUrl="https://avatars.githubusercontent.com/u/62979208?v=4"
-          name="Nikaum"
-        />
+        <Sidebar />
 
         <Styles.LayoutContent>
           <Outlet />

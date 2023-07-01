@@ -1,18 +1,33 @@
-import { Header } from '../../components/Header'
-import { getTopTracks } from './endpoints/endpoints'
+import { useSpotify } from '../../hooks/useSpotify'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useNavigate } from 'react-router-dom'
+import { authUser, getUser } from '../../store/reducers/userSlice'
+import { useCallback, useEffect } from 'react'
 
 export function Home() {
-  // const token = useSpotify()
+  const token = useSpotify()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const playlistId = '1KqsZ95K9YEl9nOMw7V17K'
+  // async function handleGetUserTopTracks() {
+  //   const tracks = await getTopTracks()
 
-  async function handleGetUserTopTracks() {
-    const tracks = await getTopTracks()
+  //   console.log(tracks)
+  // }
 
-    console.log(tracks)
-  }
+  // handleGetUserTopTracks()
 
-  handleGetUserTopTracks()
+  const handleAuthUser = useCallback(async () => {
+    try {
+      await dispatch(authUser(token))
+    } catch (err) {
+      navigate('/')
+    }
+  }, [dispatch, navigate, token])
+
+  useEffect(() => {
+    handleAuthUser()
+  }, [handleAuthUser])
 
   return <></>
 }

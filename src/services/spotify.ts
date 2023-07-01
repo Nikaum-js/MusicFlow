@@ -28,9 +28,7 @@ export const getTokenFromUrl = (): Record<string, string> => {
     }, {})
 }
 
-const token =
-  'BQDy9yX1w7OOkbBLQnopEZaBfhlp5YA3msFLYmPP26tckpnJiZPkhzuchOpXeZWPgRX9rrcn89vb5yVo2A7R2oTXnFmosliWaFEvqtCL1eUSSXO8hXKxF1c2VYi8mIqLkPNuR7rJBy2sQuZdLalqp6ArAu7zqMj_hQtGIRcOoXBVNerRPP_o8EKBPqgn7IsgQcXzCY_Fp9yB1tCricwUZvzc3ngL9T7FRep-Wmj08cTRuc_sDaZa5flhLYETSoQ'
-export async function fetchWebApi(endpoint, method, body) {
+export async function fetchWebApi(endpoint, method, body, token) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
       Authorization: `Bearer ${token}`,
