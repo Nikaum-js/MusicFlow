@@ -1,6 +1,5 @@
 import spotify from '../../assets/spotify.svg'
 import { loginURL } from '../../services/spotify'
-
 import Styles from './styles'
 
 export function Login() {
@@ -8,7 +7,7 @@ export function Login() {
     <Styles.Container>
       <Styles.Content>
         <h1>
-          Musi<span>Flow</span>
+          Music<span>Flow</span>
         </h1>
 
         <p>O WebPlayer para quem gosta de música!</p>

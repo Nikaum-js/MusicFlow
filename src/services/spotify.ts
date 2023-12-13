@@ -1,6 +1,6 @@
 const authEndpoint = 'https://accounts.spotify.com/authorize'
 
-const redirectUri = 'http://localhost:5173/home'
+const redirectUri = 'http://localhost:5173/app'
 
 const scopes = [
   'user-read-currently-playing',
@@ -28,7 +28,12 @@ export const getTokenFromUrl = (): Record<string, string> => {
     }, {})
 }
 
-export async function fetchWebApi(endpoint, method, body, token) {
+export async function fetchWebApi(
+  endpoint: unknown,
+  method: unknown,
+  body: unknown,
+  token: unknown,
+) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
       Authorization: `Bearer ${token}`,
