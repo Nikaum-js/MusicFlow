@@ -2,14 +2,12 @@ const apiUrl = import.meta.env.VITE_AMBIENT_DEVELOPMENT
 let redirectUri = ''
 let ClientId = ''
 
-console.log(apiUrl)
-
 if (apiUrl === 'development') {
-  redirectUri = 'https://music-flow-swart.vercel.app/app'
-  ClientId = 'cc2aff242cbd459c9501c011d98f7d2f'
-} else {
   redirectUri = 'http://localhost:5173/app'
   ClientId = 'b624d7f6268541b0b60b6918e6c73fcf'
+} else {
+  redirectUri = 'https://music-flow-swart.vercel.app/app'
+  ClientId = 'cc2aff242cbd459c9501c011d98f7d2f'
 }
 
 const authEndpoint = 'https://accounts.spotify.com/authorize'
