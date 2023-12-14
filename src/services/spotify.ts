@@ -1,6 +1,13 @@
-const authEndpoint = 'https://accounts.spotify.com/authorize'
+const apiUrl = import.meta.env.VITE_AMBIENT_DEVELOPMENT
+let redirectUri = ''
 
-const redirectUri = 'http://localhost:5173/app'
+if (apiUrl === 'development') {
+  redirectUri = 'http://localhost:5173/app'
+} else {
+  redirectUri = 'http://music-flow/app '
+}
+
+const authEndpoint = 'https://accounts.spotify.com/authorize'
 
 const scopes = [
   'user-read-currently-playing',
@@ -29,10 +36,10 @@ export const getTokenFromUrl = (): Record<string, string> => {
 }
 
 export async function fetchWebApi(
-  endpoint: unknown,
-  method: unknown,
-  body: unknown,
-  token: unknown,
+  endpoint: string,
+  method: string,
+  body: any,
+  token: string,
 ) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {

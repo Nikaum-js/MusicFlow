@@ -8,10 +8,11 @@ import { Header } from '../../components/Header'
 import { useSpotify } from '../../hooks/useSpotify'
 import { useAppDispatch } from '../../store/hooks'
 import { authUser } from '../../store/reducers/userSlice'
-import { getTopTracks } from './endpoints/endpoints'
+import { getTopArtist, getTopTracks } from './endpoints/endpoints'
 import Styles from './styles'
 
 import 'keen-slider/keen-slider.min.css'
+import { CardArtist } from '../../components/CardArtist'
 
 interface Image {
   url: string
@@ -29,8 +30,14 @@ const toggleViewTypeMap: Record<'list' | 'carousel', 'list' | 'carousel'> = {
 }
 
 export function Home() {
-  const [viewType, setViewType] = useState<'list' | 'carousel'>('carousel')
+  const [viewTrackType, setViewTrackType] = useState<'list' | 'carousel'>(
+    'carousel',
+  )
+  const [viewArtistType, setViewArtistType] = useState<'list' | 'carousel'>(
+    'carousel',
+  )
   const [topTracks, setTopTracks] = useState<FormattedTrack[]>()
+  const [topArtist, setTopArtist] = useState<any[]>()
 
   const token = useSpotify()
   const navigate = useNavigate()
@@ -105,8 +112,12 @@ export function Home() {
     },
   })
 
-  function handleToggleViewType() {
-    setViewType(toggleViewTypeMap[viewType])
+  function handleToggleTrackViewType() {
+    setViewTrackType(toggleViewTypeMap[viewTrackType])
+  }
+
+  function handleToggleArtistViewType() {
+    setViewArtistType(toggleViewTypeMap[viewArtistType])
   }
 
   const handleAuthUser = useCallback(async () => {
@@ -117,16 +128,18 @@ export function Home() {
     }
   }, [dispatch, navigate, token])
 
-  const getAllTopTracks = useCallback(async () => {
-    const response = await getTopTracks(token)
+  const getAllTopTracksAndArtists = useCallback(async () => {
+    const responseTopTracks = await getTopTracks(token)
+    const responseTopArtists = await getTopArtist(token)
 
-    setTopTracks(response)
+    setTopArtist(responseTopArtists)
+    setTopTracks(responseTopTracks)
   }, [token])
 
   useEffect(() => {
     handleAuthUser()
-    getAllTopTracks()
-  }, [getAllTopTracks, handleAuthUser])
+    getAllTopTracksAndArtists()
+  }, [getAllTopTracksAndArtists, handleAuthUser])
 
   return (
     <>
@@ -134,43 +147,89 @@ export function Home() {
 
       <Styles.Container>
         <Styles.Content>
-          <div className="top-musics">
-            <div className="info-text">
-              <h1>Músicas mais ouvidas</h1>
-              <h3>Suas principais músicas das últimas quatro semanas</h3>
+          <Styles.TopTracks>
+            <div className="top-musics">
+              <div className="info-text">
+                <h1>Músicas mais ouvidas</h1>
+                <h3>Suas principais músicas das últimas quatro semanas</h3>
+              </div>
+
+              <button onClick={() => handleToggleTrackViewType()}>
+                <SquaresFour size={28} color="#fff" />
+              </button>
             </div>
 
-            <button onClick={() => handleToggleViewType()}>
-              <SquaresFour size={28} color="#fff" />
-            </button>
-          </div>
+            {topTracks?.length! > 0 && viewTrackType === 'carousel' ? (
+              <Styles.TopTracksAndArtistCarousel
+                ref={sliderRef}
+                className="keen-slider"
+              >
+                {topTracks?.map((track, index) => (
+                  <CardTrack
+                    key={index}
+                    className="keen-slider__slide"
+                    placing={index}
+                    artist={track.artist}
+                    name={track.music}
+                    urlAlbum={track.album.url}
+                  />
+                ))}
+              </Styles.TopTracksAndArtistCarousel>
+            ) : (
+              <Styles.TopTracksAndArtistList>
+                {topTracks?.map((track, index) => (
+                  <CardTrack
+                    key={index}
+                    placing={index}
+                    artist={track.artist}
+                    name={track.music}
+                    urlAlbum={track.album.url}
+                  />
+                ))}
+              </Styles.TopTracksAndArtistList>
+            )}
+          </Styles.TopTracks>
 
-          {topTracks?.length! > 0 && viewType === 'carousel' ? (
-            <Styles.TopTracksCarousel ref={sliderRef} className="keen-slider">
-              {topTracks?.map((track, index) => (
-                <CardTrack
-                  key={index}
-                  className="keen-slider__slide"
-                  placing={index}
-                  artist={track.artist}
-                  name={track.music}
-                  urlAlbum={track.album.url}
-                />
-              ))}
-            </Styles.TopTracksCarousel>
-          ) : (
-            <Styles.TopTracksList>
-              {topTracks?.map((track, index) => (
-                <CardTrack
-                  key={index}
-                  placing={index}
-                  artist={track.artist}
-                  name={track.music}
-                  urlAlbum={track.album.url}
-                />
-              ))}
-            </Styles.TopTracksList>
-          )}
+          <Styles.TopArtist>
+            <div className="top-musics">
+              <div className="info-text">
+                <h1>Artistas mais ouvidos</h1>
+                <h3>Seus principais artistas das últimas quatro semanas</h3>
+              </div>
+
+              <button onClick={() => handleToggleArtistViewType()}>
+                <SquaresFour size={28} color="#fff" />
+              </button>
+            </div>
+
+            {topTracks?.length! > 0 && viewArtistType === 'carousel' ? (
+              <Styles.TopTracksAndArtistCarousel
+                ref={sliderRef}
+                className="keen-slider"
+              >
+                {topArtist?.map((artist, index) => (
+                  <CardArtist
+                    key={index}
+                    placing={index}
+                    className="keen-slider__slide"
+                    avatar={artist.avatar}
+                    name={artist.name}
+                  />
+                ))}
+              </Styles.TopTracksAndArtistCarousel>
+            ) : (
+              <Styles.TopTracksAndArtistList>
+                {topArtist?.map((artist, index) => (
+                  <CardArtist
+                    key={index}
+                    placing={index}
+                    avatar={artist.avatar}
+                    name={artist.name}
+                  />
+                ))}
+              </Styles.TopTracksAndArtistList>
+            )}
+          </Styles.TopArtist>
         </Styles.Content>
       </Styles.Container>
     </>

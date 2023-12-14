@@ -54,20 +54,26 @@ const Content = styled.aside`
   }
 `
 
-const TopTracksCarousel = styled.div`
+const TopTracks = styled.div``
+
+const TopTracksAndArtistCarousel = styled.div`
   display: flex;
 `
 
-const TopTracksList = styled.div`
+const TopTracksAndArtistList = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 24px 16px;
 `
 
+const TopArtist = styled.div``
+
 export default {
-  TopTracksCarousel,
-  TopTracksList,
+  TopTracksAndArtistCarousel,
+  TopTracksAndArtistList,
+  TopArtist,
+  TopTracks,
   Container,
   Content,
 }

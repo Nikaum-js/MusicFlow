@@ -1,9 +1,5 @@
 import { fetchWebApi } from '../../../services/spotify'
 
-interface Artist {
-  name: string
-}
-
 interface Image {
   url: string
 }
@@ -12,10 +8,25 @@ interface Album {
   images: Image[]
 }
 
+interface Avatar {
+  images: Image[]
+}
+
+interface Artist {
+  images: any
+  name: string
+  avatar: Avatar[]
+}
+
 interface Track {
   name: string
   album: Album
   artists: Artist[]
+}
+
+interface FormattedArtist {
+  name: string
+  avatar: Avatar
 }
 
 interface FormattedTrack {
@@ -52,6 +63,34 @@ export async function getTopTracks(token: string): Promise<FormattedTrack[]> {
     )
 
     return formattedTracks
+  } catch (err) {
+    console.error(err)
+
+    throw err
+  }
+}
+
+export async function getTopArtist(token: string): Promise<FormattedArtist[]> {
+  try {
+    const topArtistResponse = await fetchWebApi(
+      'v1/me/top/artists?time_range=short_term&limit=50',
+      'GET',
+      undefined,
+      token,
+    )
+
+    const topArtist: Artist[] = topArtistResponse.items
+
+    const formattedArtist: FormattedArtist[] = topArtist.map(
+      (topArtist: Artist) => {
+        return {
+          avatar: topArtist.images[0].url,
+          name: topArtist.name,
+        }
+      },
+    )
+
+    return formattedArtist
   } catch (err) {
     console.error(err)
 
