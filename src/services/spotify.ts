@@ -4,7 +4,7 @@ let redirectUri = ''
 if (apiUrl === 'development') {
   redirectUri = 'http://localhost:5173/app'
 } else {
-  redirectUri = 'http://music-flow/app '
+  redirectUri = 'https://music-flow-swart.vercel.app/app '
 }
 
 const authEndpoint = 'https://accounts.spotify.com/authorize'
