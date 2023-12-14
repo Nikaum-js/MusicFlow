@@ -10,7 +10,7 @@ export function Login() {
           Music<span>Flow</span>
         </h1>
 
-        <p>O WebPlayer para quem gosta de música!</p>
+        <p>O App para quem gosta de música!</p>
 
         <a href={loginURL}>
           <img src={spotify} alt="spotify" />
