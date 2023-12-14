@@ -2,6 +2,8 @@ const apiUrl = import.meta.env.VITE_AMBIENT_DEVELOPMENT
 let redirectUri = ''
 let ClientId = ''
 
+console.log(apiUrl)
+
 if (apiUrl === 'development') {
   redirectUri = 'https://music-flow-swart.vercel.app/app'
   ClientId = 'cc2aff242cbd459c9501c011d98f7d2f'
