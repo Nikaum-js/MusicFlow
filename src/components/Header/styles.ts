@@ -30,13 +30,13 @@ const Profile = styled.div`
   strong {
     color: ${({ theme }) => theme.colors.gray_100};
     font-weight: ${({ theme }) => theme.fontsWeights.bold};
-    font-size: ${({ theme }) => theme.fontsSize.large}rem;
+    font-size: ${({ theme }) => theme.fontsSize.medium}rem;
   }
 
   span {
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.gray_400};
-    font-weight: ${({ theme }) => theme.fontsWeights.regular};
+    font-weight: ${({ theme }) => theme.fontsWeights.medium};
     font-size: ${({ theme }) => theme.fontsSize.newRegular}rem;
   }
 

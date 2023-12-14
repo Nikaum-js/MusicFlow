@@ -26,7 +26,7 @@ const Content = styled.div`
   p {
     max-width: 260px;
     text-align: center;
-    font-size: ${({ theme }) => theme.fontsSize.large}rem;
+    font-size: ${({ theme }) => theme.fontsSize.medium}rem;
     color: ${({ theme }) => theme.colors.gray_100};
     margin: 12px;
     line-height: 24px;

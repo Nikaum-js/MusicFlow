@@ -19,7 +19,7 @@ const Sidebar = styled.aside`
         padding: 8px 0;
 
         a {
-          font-size: ${({ theme }) => theme.fontsSize.large}rem;
+          font-size: ${({ theme }) => theme.fontsSize.medium}rem;
           font-weight: ${({ theme }) => theme.fontsWeights.bold};
           color: ${({ theme }) => theme.colors.gray_300};
           transition: 0.2s;
@@ -56,7 +56,7 @@ const Profile = styled.div`
   strong {
     color: ${({ theme }) => theme.colors.gray_100};
     font-weight: ${({ theme }) => theme.fontsWeights.bold};
-    font-size: ${({ theme }) => theme.fontsSize.large}rem;
+    font-size: ${({ theme }) => theme.fontsSize.medium}rem;
   }
 
   span {

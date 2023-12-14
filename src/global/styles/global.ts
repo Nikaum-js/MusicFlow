@@ -36,17 +36,4 @@ export const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.colors.green_300};
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.green_300};
-    border-radius: 5px;
-  }
 `
