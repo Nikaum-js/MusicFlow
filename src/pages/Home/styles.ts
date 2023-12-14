@@ -11,6 +11,8 @@ const Container = styled.aside`
 const Content = styled.aside`
   width: 84%;
 
+  margin-bottom: 32px;
+
   .top-musics {
     display: flex;
     align-items: center;
