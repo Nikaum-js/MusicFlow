@@ -3,6 +3,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { CardArtist } from '../../components/CardArtist'
 import { CardTrack } from '../../components/CardTrack'
 import { Header } from '../../components/Header'
 import { useSpotify } from '../../hooks/useSpotify'
@@ -12,7 +13,6 @@ import { getTopArtist, getTopTracks } from './endpoints/endpoints'
 import Styles from './styles'
 
 import 'keen-slider/keen-slider.min.css'
-import { CardArtist } from '../../components/CardArtist'
 
 interface Image {
   url: string
@@ -43,7 +43,76 @@ export function Home() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const [sliderRef] = useKeenSlider({
+  const [artistSliderRef] = useKeenSlider({
+    slides: {
+      perView: 9.2,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(max-width: 1560px)': {
+        slides: {
+          perView: 8.2,
+          spacing: 16,
+        },
+      },
+      '(max-width: 1480px)': {
+        slides: {
+          perView: 7.2,
+          spacing: 16,
+        },
+      },
+      '(max-width: 1280px)': {
+        slides: {
+          perView: 6.2,
+          spacing: 16,
+        },
+      },
+      '(max-width: 1060px)': {
+        slides: {
+          perView: 5.2,
+          spacing: 16,
+        },
+      },
+      '(max-width: 860px)': {
+        slides: {
+          perView: 4.2,
+          spacing: 12,
+        },
+      },
+      '(max-width: 768px)': {
+        slides: {
+          perView: 3.2,
+          spacing: 12,
+        },
+      },
+      '(max-width: 580px)': {
+        slides: {
+          perView: 3.2,
+          spacing: 8,
+        },
+      },
+      '(max-width: 520px)': {
+        slides: {
+          perView: 3.1,
+          spacing: 8,
+        },
+      },
+      '(max-width: 480px)': {
+        slides: {
+          perView: 2.4,
+          spacing: 8,
+        },
+      },
+      '(max-width: 420px)': {
+        slides: {
+          perView: 2.3,
+          spacing: 8,
+        },
+      },
+    },
+  })
+
+  const [trackSliderRef] = useKeenSlider({
     slides: {
       perView: 9.2,
       spacing: 16,
@@ -161,12 +230,12 @@ export function Home() {
 
             {topTracks?.length! > 0 && viewTrackType === 'carousel' ? (
               <Styles.TopTracksAndArtistCarousel
-                ref={sliderRef}
+                ref={trackSliderRef}
                 className="keen-slider"
               >
                 {topTracks?.map((track, index) => (
                   <CardTrack
-                    key={index}
+                    key={`${index} - ${track.music}`}
                     className="keen-slider__slide"
                     placing={index}
                     artist={track.artist}
@@ -179,7 +248,7 @@ export function Home() {
               <Styles.TopTracksAndArtistList>
                 {topTracks?.map((track, index) => (
                   <CardTrack
-                    key={index}
+                    key={`${index} - ${track.music}`}
                     placing={index}
                     artist={track.artist}
                     name={track.music}
@@ -202,14 +271,14 @@ export function Home() {
               </button>
             </div>
 
-            {topTracks?.length! > 0 && viewArtistType === 'carousel' ? (
+            {topArtist?.length! > 0 && viewArtistType === 'carousel' ? (
               <Styles.TopTracksAndArtistCarousel
-                ref={sliderRef}
+                ref={artistSliderRef}
                 className="keen-slider"
               >
                 {topArtist?.map((artist, index) => (
                   <CardArtist
-                    key={index}
+                    key={`${index} - ${artist.name}`}
                     placing={index}
                     className="keen-slider__slide"
                     avatar={artist.avatar}
@@ -221,7 +290,7 @@ export function Home() {
               <Styles.TopTracksAndArtistList>
                 {topArtist?.map((artist, index) => (
                   <CardArtist
-                    key={index}
+                    key={`${index} - ${artist.name}`}
                     placing={index}
                     avatar={artist.avatar}
                     name={artist.name}
