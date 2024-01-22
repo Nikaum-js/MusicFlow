@@ -44,7 +44,7 @@ interface User {
 export async function getTopTracks(token: string): Promise<FormattedTrack[]> {
   try {
     const topTracksResponse = await fetchWebApi(
-      'v1/me/top/tracks?time_range=short_term&limit=50',
+      'v1/me/top/tracks?time_range=long_term&limit=50',
       'GET',
       undefined,
       token,
@@ -73,7 +73,7 @@ export async function getTopTracks(token: string): Promise<FormattedTrack[]> {
 export async function getTopArtist(token: string): Promise<FormattedArtist[]> {
   try {
     const topArtistResponse = await fetchWebApi(
-      'v1/me/top/artists?time_range=short_term&limit=50',
+      'v1/me/top/artists?time_range=long_term&limit=50',
       'GET',
       undefined,
       token,

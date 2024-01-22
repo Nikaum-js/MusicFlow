@@ -22,7 +22,6 @@ export function Header() {
 
           <div className="user-information">
             <strong>{user.name}</strong>
-            <span>{`@${user.nickname}`}</span>
           </div>
         </Styles.Profile>
       </Styles.Content>

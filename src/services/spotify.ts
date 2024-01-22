@@ -12,13 +12,7 @@ if (apiUrl === 'development') {
 
 const authEndpoint = 'https://accounts.spotify.com/authorize'
 
-const scopes = [
-  'user-read-currently-playing',
-  'user-read-recently-played',
-  'user-read-playback-state',
-  'user-top-read',
-  'user-modify-playback-state',
-]
+const scopes = ['user-read-recently-played', 'user-top-read']
 
 export const loginURL = `${authEndpoint}?client_id=${ClientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   '%20',
